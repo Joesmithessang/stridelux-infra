@@ -101,9 +101,12 @@ resource "aws_iam_role_policy" "admin_ses" {
     Version = "2012-10-17"
     Statement = [
       {
-        Effect   = "Allow"
-        Action   = ["ses:SendEmail"]
-        Resource = "*"
+        Effect = "Allow"
+        Action = ["ses:SendEmail"]
+        Resource = [
+          aws_ses_domain_identity.main.arn,
+          aws_ses_email_identity.orders.arn,
+        ]
       }
     ]
   })
@@ -191,9 +194,12 @@ resource "aws_iam_role_policy" "payments_ses" {
     Version = "2012-10-17"
     Statement = [
       {
-        Effect   = "Allow"
-        Action   = ["ses:SendEmail"]
-        Resource = "*"
+        Effect = "Allow"
+        Action = ["ses:SendEmail"]
+        Resource = [
+          aws_ses_domain_identity.main.arn,
+          aws_ses_email_identity.orders.arn,
+        ]
       }
     ]
   })
