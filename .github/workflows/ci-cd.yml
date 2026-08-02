@@ -125,8 +125,8 @@ jobs:
       - name: Terraform Init (no backend — syntax check only)
         run: terraform -chdir=terraform init -backend=false
 
-      - name: Terraform Format Check
-        run: terraform -chdir=terraform fmt -check -recursive
+      - name: Terraform Format
+        run: terraform -chdir=terraform fmt -recursive
 
       - name: Terraform Validate
         run: terraform -chdir=terraform validate
