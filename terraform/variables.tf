@@ -30,18 +30,21 @@ variable "cognito_temp_password" {
   description = "Temporary password assigned to new admin users created via AdminCreateUser. Must meet Cognito password policy."
   type        = string
   sensitive   = true
+  default     = null
 }
 
 variable "stripe_secret_key" {
-  description = "Stripe secret API key (sk_...). Stored in SSM and injected into stridelux-payments-fn."
+  description = "Stripe secret API key (sk_...). Required when applying Lambda resources."
   type        = string
   sensitive   = true
+  default     = null
 }
 
 variable "stripe_webhook_secret" {
-  description = "Stripe webhook signing secret (whsec_...). Stored in SSM and injected into stridelux-payments-fn."
+  description = "Stripe webhook signing secret (whsec_...). Required when applying Lambda resources."
   type        = string
   sensitive   = true
+  default     = null
 }
 
 variable "log_retention_days" {
