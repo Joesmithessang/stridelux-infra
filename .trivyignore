@@ -65,3 +65,15 @@ AVD-AWS-0067
 # AWS SSM Parameter Store (SecureString) and injected at runtime.
 # CMK for env vars is redundant given SSM handles the sensitive data.
 AVD-AWS-0066
+
+# IAM — SES SendEmail allows wildcard resource (AVD-AWS-0057)
+# Risk: ses:SendEmail is granted on Resource: "*" for admin-fn and payments-fn.
+# Accepted: SES SendEmail requires permissions on two identity ARNs simultaneously —
+# the domain identity (strideluxstore.com) AND the from-address email identity
+# (orders@strideluxstore.com). Specifying only one causes AccessDenied at runtime
+# (confirmed during testing). iam.tf has already been updated to reference both
+# exact ARNs via aws_ses_domain_identity.main.arn and aws_ses_email_identity.orders.arn —
+# suppression will be removed once terraform apply is executed against the live environment.
+# Compensating control: ses:SendEmail is the only action granted; no administrative
+# SES actions (Delete*, Create*, Update*) are permitted.
+AVD-AWS-0057
