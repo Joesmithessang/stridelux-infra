@@ -1,0 +1,23 @@
+# Terraform provider cache and binaries
+**/.terraform/*
+!**/.terraform.lock.hcl
+
+# State files — never commit these
+*.tfstate
+*.tfstate.*
+
+# Crash logs
+crash.log
+crash.*.log
+
+# Sensitive variable files
+*.tfvars
+*.tfvars.json
+
+# Generated plan output
+*.tfplan
+plan.txt
+plan_output.txt
+
+# Misc
+.DS_Store
