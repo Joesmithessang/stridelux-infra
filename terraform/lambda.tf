@@ -29,9 +29,10 @@ locals {
     "admin" = {
       role_arn = aws_iam_role.admin.arn
       env = {
-        COGNITO_USER_POOL_ID = aws_cognito_user_pool.main.id
-        FRONTEND_URL         = "https://${var.domain_name}"
-        SES_FROM_ADDRESS     = "orders@${var.domain_name}"
+        COGNITO_USER_POOL_ID  = aws_cognito_user_pool.main.id
+        COGNITO_TEMP_PASSWORD = var.cognito_temp_password
+        FRONTEND_URL          = "https://${var.domain_name}"
+        SES_FROM_ADDRESS      = "orders@${var.domain_name}"
       }
     }
     "users" = {

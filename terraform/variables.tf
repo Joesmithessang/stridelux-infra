@@ -26,6 +26,12 @@ variable "github_actions_user_name" {
   default     = "github-actions-stridelux"
 }
 
+variable "cognito_temp_password" {
+  description = "Temporary password assigned to new admin users created via AdminCreateUser. Must meet Cognito password policy."
+  type        = string
+  sensitive   = true
+}
+
 variable "stripe_secret_key" {
   description = "Stripe secret API key (sk_...). Stored in SSM and injected into stridelux-payments-fn."
   type        = string
