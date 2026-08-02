@@ -86,9 +86,13 @@ Push / Pull Request → main
 
 No `terraform plan` or `terraform apply` in CI. Infrastructure changes are reviewed and applied manually.
 
-### SonarQube Community Edition
+### Code Quality — Dual Analysis Strategy
 
-A dormant SonarQube block is included in the workflow. To activate: add `SONAR_HOST_URL` to repo secrets, comment out the SonarCloud step, uncomment the SonarQube step.
+**SonarCloud (cloud-hosted — active)**
+Runs automatically on every pull request and push to `main`. Quality gate must pass before a PR can be merged. Free for public repositories.
+
+**SonarQube Community Edition (self-hosted — on-demand)**
+Set up on a forked repository of this codebase, backed by a self-hosted GitHub Actions runner on an EC2 instance. The EC2 is not continuously running — it is started on-demand when a targeted scan is required, then stopped. A dormant SonarQube step is included in the workflow. To activate: start the EC2, add `SONAR_HOST_URL` to the forked repo secrets, comment out the SonarCloud step, and uncomment the SonarQube step.
 
 ---
 
