@@ -16,8 +16,10 @@ crash.*.log
 
 # Generated plan output
 *.tfplan
+tfplan
 plan.txt
 plan_output.txt
+apply_output.txt
 
 # Misc
 .DS_Store
