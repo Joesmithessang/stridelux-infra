@@ -10,6 +10,10 @@ resource "aws_dynamodb_table" "products" {
   hash_key     = "productId"
   tags         = local.common_tags
 
+  point_in_time_recovery {
+    enabled = true
+  }
+
   attribute {
     name = "productId"
     type = "S"
@@ -48,6 +52,10 @@ resource "aws_dynamodb_table" "users" {
   hash_key     = "userId" # Cognito sub
   tags         = local.common_tags
 
+  point_in_time_recovery {
+    enabled = true
+  }
+
   attribute {
     name = "userId"
     type = "S"
@@ -70,6 +78,10 @@ resource "aws_dynamodb_table" "orders" {
   hash_key     = "userId"
   range_key    = "orderId"
   tags         = local.common_tags
+
+  point_in_time_recovery {
+    enabled = true
+  }
 
   attribute {
     name = "userId"
@@ -108,6 +120,10 @@ resource "aws_dynamodb_table" "coupons" {
   hash_key     = "couponId"
   tags         = local.common_tags
 
+  point_in_time_recovery {
+    enabled = true
+  }
+
   attribute {
     name = "couponId"
     type = "S"
@@ -132,6 +148,10 @@ resource "aws_dynamodb_table" "cart_wishlist" {
   hash_key     = "userId"
   range_key    = "itemId"
   tags         = local.common_tags
+
+  point_in_time_recovery {
+    enabled = true
+  }
 
   attribute {
     name = "userId"

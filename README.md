@@ -147,7 +147,7 @@ Each suppression is documented with a business justification. Summary:
 | `AVD-AWS-0010` CloudFront logging | Lambda + API Gateway CloudWatch covers observability |
 | `AVD-AWS-0012` Geo restriction | Global storefront — geo restriction blocks legitimate users |
 | `AVD-AWS-0025` DynamoDB CMK | AWS-owned encryption at rest is enabled by default |
-| `AVD-AWS-0024` DynamoDB PITR | Adds cost; not enabled on live tables; noted for production |
+| `AVD-AWS-0024` DynamoDB PITR | **Resolved** — PITR enabled on all 5 tables via `terraform apply` |
 | `AVD-AWS-0067` Lambda X-Ray | CloudWatch Logs sufficient; X-Ray adds per-invocation cost |
 | `AVD-AWS-0066` Lambda env CMK | Sensitive values in AWS SSM; env CMK would be redundant |
 | `AVD-AWS-0057` IAM SES wildcard | `iam.tf` updated to scope both identity ARNs — pending `terraform apply` |

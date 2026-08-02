@@ -45,13 +45,6 @@ AVD-AWS-0012
 # (key rotation, access policies) not warranted for a capstone project.
 AVD-AWS-0025
 
-# DynamoDB — Point-in-time recovery not enabled (AVD-AWS-0024)
-# Risk: Tables cannot be restored to an arbitrary point in time.
-# Accepted: PITR adds cost and the live tables were created without it.
-# Enabling via Terraform would modify live tables on next apply.
-# Recommended for production: add point_in_time_recovery { enabled = true }.
-AVD-AWS-0024
-
 # Lambda — X-Ray tracing not enabled (AVD-AWS-0067)
 # Risk: Lambda invocations are not traced with AWS X-Ray.
 # Accepted: Tracing is not enabled on the live functions.
