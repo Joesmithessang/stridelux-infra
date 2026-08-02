@@ -18,7 +18,11 @@ resource "aws_s3_bucket_public_access_block" "frontend" {
   restrict_public_buckets = true
 }
 
-# SSE-S3 (AWS-managed key) — matches live default encryption
+# SSE-S3 (AWS-managed key) — matches live default encryption.
+# AVD-AWS-0132 (CMK) is intentionally suppressed: this bucket serves a public
+# static website; CMK adds no meaningful security benefit over SSE-S3 for
+# publicly readable content, and introduces unnecessary cost and complexity.
+#trivy:ignore:AVD-AWS-0132
 resource "aws_s3_bucket_server_side_encryption_configuration" "frontend" {
   bucket = aws_s3_bucket.frontend.id
   rule {

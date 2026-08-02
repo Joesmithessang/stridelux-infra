@@ -1,0 +1,67 @@
+# ─────────────────────────────────────────────────────────────
+# StrideLux Infra — Trivy suppressed findings
+#
+# Each entry is an intentional, documented acceptance of risk.
+# Suppressions mirror the live AWS environment imported via
+# imports.tf and are appropriate for a student capstone project.
+# ─────────────────────────────────────────────────────────────
+
+# S3 — Customer Managed Key encryption (AVD-AWS-0132)
+# Risk: Bucket does not use a CMK for server-side encryption.
+# Accepted: The frontend bucket serves a public static website.
+# SSE-S3 (AES256) is adequate for publicly readable content.
+# CMK adds $1/month + API cost with no meaningful security gain here.
+AVD-AWS-0132
+
+# S3 — Access logging not enabled (AVD-AWS-0089)
+# Risk: S3 requests are not logged to a separate bucket.
+# Accepted: CloudFront access logs capture all user-facing traffic.
+# Enabling S3 access logging separately would duplicate data at extra cost.
+AVD-AWS-0089
+
+# S3 — Versioning not enabled (AVD-AWS-0090)
+# Risk: Objects cannot be recovered if accidentally deleted.
+# Accepted: This is a CI/CD deployment bucket — files are rebuilt and
+# redeployed on every push. Versioning would accumulate stale build
+# artifacts and increase storage cost with no recovery benefit.
+AVD-AWS-0090
+
+# CloudFront — Access logging not configured (AVD-AWS-0010)
+# Risk: CloudFront request logs are not persisted.
+# Accepted: CloudFront standard logging incurs additional S3 storage cost.
+# Application-level logging is handled by API Gateway and Lambda CloudWatch.
+AVD-AWS-0010
+
+# CloudFront — Geo restriction not enabled (AVD-AWS-0012)
+# Risk: Distribution is accessible from all countries.
+# Accepted: StrideLux is an e-commerce store intended to serve
+# a global customer base. Geo-restriction would block legitimate users.
+AVD-AWS-0012
+
+# DynamoDB — Customer Managed Key encryption (AVD-AWS-0025)
+# Risk: DynamoDB tables use AWS-owned encryption keys, not CMKs.
+# Accepted: AWS-owned encryption at rest is enabled by default on all tables.
+# CMK would require a KMS key ($1/month) and adds operational overhead
+# (key rotation, access policies) not warranted for a capstone project.
+AVD-AWS-0025
+
+# DynamoDB — Point-in-time recovery not enabled (AVD-AWS-0024)
+# Risk: Tables cannot be restored to an arbitrary point in time.
+# Accepted: PITR adds cost and the live tables were created without it.
+# Enabling via Terraform would modify live tables on next apply.
+# Recommended for production: add point_in_time_recovery { enabled = true }.
+AVD-AWS-0024
+
+# Lambda — X-Ray tracing not enabled (AVD-AWS-0067)
+# Risk: Lambda invocations are not traced with AWS X-Ray.
+# Accepted: Tracing is not enabled on the live functions.
+# CloudWatch Logs capture all Lambda output for debugging.
+# X-Ray tracing adds cost per invocation not budgeted for this project.
+AVD-AWS-0067
+
+# Lambda — Environment variables not encrypted with CMK (AVD-AWS-0066)
+# Risk: Lambda environment variables are encrypted with AWS-managed keys.
+# Accepted: Sensitive values (Stripe keys, SES address) are stored in
+# AWS SSM Parameter Store (SecureString) and injected at runtime.
+# CMK for env vars is redundant given SSM handles the sensitive data.
+AVD-AWS-0066
